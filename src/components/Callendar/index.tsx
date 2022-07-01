@@ -6,7 +6,6 @@ import Back from "../../assets/Back.svg";
 import "./styles.css";
 import Button from "../Button";
 import DateBox from "../DateBox";
-import { type } from "os";
 
 const daysNames = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
