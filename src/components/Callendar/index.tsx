@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { callendarHandler } from "../../utils/helper";
+import { callendarHandler, dateFormatter } from "../../utils/helper";
 import Back from "../../assets/Back.svg";
 
 import "./styles.css";
@@ -53,7 +53,11 @@ const Callendar = () => {
               }
               onClick={() => setBorderBottom(e)}
             >
-              {e}
+              {e === "CHECK-IN" && duration["CHECK-IN"]?.day
+                ? dateFormatter(duration, "CHECK-IN")
+                : e === "CHECK-OUT" && duration["CHECK-OUT"]?.day
+                ? dateFormatter(duration, "CHECK-OUT")
+                : e}
             </div>
           </React.Fragment>
         ))}

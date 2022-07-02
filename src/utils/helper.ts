@@ -1,7 +1,7 @@
 export const callendarHandler = (monthChanger: any) => {
   const date = new Date();
   date.setMonth(monthChanger);
-  date.setDate(7);
+  date.setDate(8);
   const months = [
     "January",
     "February",
@@ -26,6 +26,7 @@ export const callendarHandler = (monthChanger: any) => {
   let nextDays = [];
 
   const firstDayIndex = date.getDay();
+  // console.log(firstDayIndex)
   const lastDayIndex = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDay();
   const nextDaysCount = lastDayIndex ? 7 - lastDayIndex : 0;
 
@@ -42,4 +43,40 @@ export const callendarHandler = (monthChanger: any) => {
   }
 
   return { time, days, prevDays, nextDays };
+};
+
+export const dateFormatter = (duration: any, type: string) => {
+  const { day, time } = duration[type];
+  const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  const dayNo = new Date(day + time).getDay();
+  const monthNo = new Date(day + time).getMonth();
+  const year = new Date(day + time).getFullYear();
+
+  return `${days[dayNo]}, ${months[monthNo]} ${year}`;
+};
+
+export const isSameDay = (d1: any, d2: any, borderBottom: string) => {
+  return (
+    (d1.getFullYear() === d2.getFullYear() &&
+    d1.getMonth() === d2.getMonth() &&
+    borderBottom === "CHECK-IN"
+      ? d1.getDate() >= d2.getDate()
+      : d1.getDate() > d2.getDate()) ||
+    d1.getMonth() > d2.getMonth() ||
+    d1.getFullYear() > d2.getFullYear()
+  );
 };

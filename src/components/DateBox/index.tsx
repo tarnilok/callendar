@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./styles.css";
+import { isSameDay } from "../../utils/helper";
 
 interface DateBoxTypes {
   allDays: [];
@@ -25,25 +26,28 @@ const DateBox = ({ allDays, borderBottom, setDuration }: DateBoxTypes) => {
             [`${borderBottom}`]: { ...selected[`${borderBottom}`], time: "", day: 0 },
           }
         : borderBottom === "CHECK-OUT"
-        ? new Date(day + time) > new Date(selected["CHECK-IN"]?.day + selected["CHECK-IN"]?.time)
+        ? new Date(day + time) >
+            (selected["CHECK-IN"]?.day
+              ? new Date(selected["CHECK-IN"]?.day + selected["CHECK-IN"]?.time)
+              : 0) && isSameDay(new Date(day + time), new Date(), borderBottom)
           ? {
               ...selected,
-              [`${borderBottom}`]: { ...selected[`${borderBottom}`], time: time, day: day },
+              [`${borderBottom}`]: { ...selected[`${borderBottom}`], time, day },
             }
           : selected
         : borderBottom === "CHECK-IN"
         ? new Date(day + time) <
-          (selected["CHECK-OUT"]?.day
-            ? new Date(selected["CHECK-OUT"]?.day + selected["CHECK-OUT"]?.time)
-            : Infinity)
+            (selected["CHECK-OUT"]?.day
+              ? new Date(selected["CHECK-OUT"]?.day + selected["CHECK-OUT"]?.time)
+              : Infinity) && isSameDay(new Date(day + time), new Date(), borderBottom)
           ? {
               ...selected,
-              [`${borderBottom}`]: { ...selected[`${borderBottom}`], time: time, day: day },
+              [`${borderBottom}`]: { ...selected[`${borderBottom}`], time, day },
             }
           : selected
         : {
             ...selected,
-            [`${borderBottom}`]: { ...selected[`${borderBottom}`], time: time, day: day },
+            [`${borderBottom}`]: { ...selected[`${borderBottom}`], time, day },
           }
     );
   };
