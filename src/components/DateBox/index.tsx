@@ -11,8 +11,6 @@ interface DateBoxTypes {
 const DateBox = ({ allDays, borderBottom, setDuration }: DateBoxTypes) => {
   const [selected, setSelected]: any = useState({});
 
-  console.log(selected);
-
   useEffect(() => {
     setDuration(selected);
   }, [selected, setDuration]);
@@ -107,7 +105,9 @@ const DateBox = ({ allDays, borderBottom, setDuration }: DateBoxTypes) => {
                           ? "#fff"
                           : isBetweenTwoDates(
                               new Date(day + item.time),
-                              new Date(selected["CHECK-IN"]?.day + selected["CHECK-IN"]?.time),
+                              selected["CHECK-IN"]?.day
+                                ? new Date(selected["CHECK-IN"]?.day + selected["CHECK-IN"]?.time)
+                                : false,
                               "CHECK-IN"
                             ) &&
                             isBetweenTwoDates(
@@ -121,7 +121,9 @@ const DateBox = ({ allDays, borderBottom, setDuration }: DateBoxTypes) => {
                       backgroundColor:
                         isBetweenTwoDates(
                           new Date(day + item.time),
-                          new Date(selected["CHECK-IN"]?.day + selected["CHECK-IN"]?.time),
+                          selected["CHECK-IN"]?.day
+                            ? new Date(selected["CHECK-IN"]?.day + selected["CHECK-IN"]?.time)
+                            : false,
                           "CHECK-IN"
                         ) &&
                         isBetweenTwoDates(

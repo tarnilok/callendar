@@ -82,7 +82,6 @@ export const isLaterFromToday = (d1: any, d2: any, borderBottom: string) => {
 };
 
 export const isBetweenTwoDates = (d1: any, d2: any, types: string) => {
-
   if (types === "CHECK-IN" && d2 && d1) {
     if (d1.getFullYear() === d2.getFullYear() && d1.getMonth() === d2.getMonth()) {
       return d1.getDate() > d2.getDate();
@@ -95,7 +94,7 @@ export const isBetweenTwoDates = (d1: any, d2: any, types: string) => {
     }
   }
 
-  if (types === "CHECK-OUT" && d2) {
+  if (types === "CHECK-OUT" && d2 && d1) {
     if (d1.getFullYear() === d2.getFullYear() && d1.getMonth() === d2.getMonth()) {
       return d1.getDate() < d2.getDate();
     } else if (d1.getMonth() < d2.getMonth()) {
@@ -106,4 +105,5 @@ export const isBetweenTwoDates = (d1: any, d2: any, types: string) => {
       return false;
     }
   }
+  return false;
 };
