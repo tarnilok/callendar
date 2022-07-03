@@ -69,7 +69,7 @@ export const dateFormatter = (duration: any, type: string) => {
   return `${days[dayNo]}, ${months[monthNo]} ${year}`;
 };
 
-export const isSameDay = (d1: any, d2: any, borderBottom: string) => {
+export const isLaterFromToday = (d1: any, d2: any, borderBottom: string) => {
   return (
     (d1.getFullYear() === d2.getFullYear() &&
     d1.getMonth() === d2.getMonth() &&
@@ -79,4 +79,31 @@ export const isSameDay = (d1: any, d2: any, borderBottom: string) => {
     d1.getMonth() > d2.getMonth() ||
     d1.getFullYear() > d2.getFullYear()
   );
+};
+
+export const isBetweenTwoDates = (d1: any, d2: any, types: string) => {
+
+  if (types === "CHECK-IN" && d2 && d1) {
+    if (d1.getFullYear() === d2.getFullYear() && d1.getMonth() === d2.getMonth()) {
+      return d1.getDate() > d2.getDate();
+    } else if (d1.getMonth() > d2.getMonth()) {
+      return true;
+    } else if (d1.getFullYear() > d2.getFullYear()) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  if (types === "CHECK-OUT" && d2) {
+    if (d1.getFullYear() === d2.getFullYear() && d1.getMonth() === d2.getMonth()) {
+      return d1.getDate() < d2.getDate();
+    } else if (d1.getMonth() < d2.getMonth()) {
+      return true;
+    } else if (d1.getFullYear() < d2.getFullYear()) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 };
