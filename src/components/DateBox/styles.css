@@ -14,6 +14,7 @@
     margin-top: 32px;
     margin-bottom: 56px;
 }
+.grid-container,
 .prevDays,
 .currentDays,
 .selectedCurrentDays
@@ -35,6 +36,10 @@
     background-color: #B89535;
     border-radius: 50%;
     padding: 10px;
-    min-width: 20px;
+    max-width: 20px;
     text-align: center;
+    margin: auto;
+}
+.grid-container {
+    width: 100%;
 }

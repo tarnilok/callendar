@@ -11,6 +11,8 @@ interface DateBoxTypes {
 const DateBox = ({ allDays, borderBottom, setDuration }: DateBoxTypes) => {
   const [selected, setSelected]: any = useState({});
 
+  console.log(selected);
+
   useEffect(() => {
     setDuration(selected);
   }, [selected, setDuration]);
@@ -71,22 +73,53 @@ const DateBox = ({ allDays, borderBottom, setDuration }: DateBoxTypes) => {
               </div>
             ))}
             {item.days.map((day: number, index: number) => (
-              <div
-                key={index}
-                className={
-                  (selected["CHECK-IN"]?.day === day && selected["CHECK-IN"]?.time === item.time) ||
-                  (selected["CHECK-OUT"]?.day === day && selected["CHECK-OUT"]?.time === item.time)
-                    ? "selectedCurrentDays"
-                    : "currentDays"
-                }
-                style={{
-                  color: isLaterFromToday(new Date(day + item.time), new Date(), "CHECK-IN")
-                    ? (selected["CHECK-IN"]?.day === day &&
+              <React.Fragment key={item.time + "-" + index}>
+                <div
+                  className="grid-container"
+                  style={{
+                    background:
+                      selected["CHECK-IN"]?.day && selected["CHECK-OUT"]?.day
+                        ? selected["CHECK-IN"]?.day === day &&
+                          selected["CHECK-IN"]?.time === item.time
+                          ? "linear-gradient(90deg, #fff 50%, #F3EFE5 50%)"
+                          : selected["CHECK-OUT"]?.day === day &&
+                            selected["CHECK-OUT"]?.time === item.time
+                          ? "linear-gradient(90deg, #F3EFE5 50%, #fff 50%)"
+                          : "null"
+                        : "null",
+                  }}
+                >
+                  <div
+                    className={
+                      (selected["CHECK-IN"]?.day === day &&
                         selected["CHECK-IN"]?.time === item.time) ||
                       (selected["CHECK-OUT"]?.day === day &&
                         selected["CHECK-OUT"]?.time === item.time)
-                      ? "#fff"
-                      : isBetweenTwoDates(
+                        ? "selectedCurrentDays"
+                        : "currentDays"
+                    }
+                    style={{
+                      color: isLaterFromToday(new Date(day + item.time), new Date(), "CHECK-IN")
+                        ? (selected["CHECK-IN"]?.day === day &&
+                            selected["CHECK-IN"]?.time === item.time) ||
+                          (selected["CHECK-OUT"]?.day === day &&
+                            selected["CHECK-OUT"]?.time === item.time)
+                          ? "#fff"
+                          : isBetweenTwoDates(
+                              new Date(day + item.time),
+                              new Date(selected["CHECK-IN"]?.day + selected["CHECK-IN"]?.time),
+                              "CHECK-IN"
+                            ) &&
+                            isBetweenTwoDates(
+                              new Date(day + item.time),
+                              new Date(selected["CHECK-OUT"]?.day + selected["CHECK-OUT"]?.time),
+                              "CHECK-OUT"
+                            )
+                          ? "#B89535"
+                          : "#1D1F22"
+                        : "#1D1F22",
+                      backgroundColor:
+                        isBetweenTwoDates(
                           new Date(day + item.time),
                           new Date(selected["CHECK-IN"]?.day + selected["CHECK-IN"]?.time),
                           "CHECK-IN"
@@ -96,50 +129,38 @@ const DateBox = ({ allDays, borderBottom, setDuration }: DateBoxTypes) => {
                           new Date(selected["CHECK-OUT"]?.day + selected["CHECK-OUT"]?.time),
                           "CHECK-OUT"
                         )
-                      ? "#B89535"
-                      : "#1D1F22"
-                    : "#1D1F22",
-                  backgroundColor:
-                    isBetweenTwoDates(
-                      new Date(day + item.time),
-                      new Date(selected["CHECK-IN"]?.day + selected["CHECK-IN"]?.time),
-                      "CHECK-IN"
-                    ) &&
-                    isBetweenTwoDates(
-                      new Date(day + item.time),
-                      new Date(selected["CHECK-OUT"]?.day + selected["CHECK-OUT"]?.time),
-                      "CHECK-OUT"
-                    )
-                      ? "#F3EFE5"
-                      : (selected["CHECK-IN"]?.day === day &&
-                          selected["CHECK-IN"]?.time === item.time) ||
-                        (selected["CHECK-OUT"]?.day === day &&
-                          selected["CHECK-OUT"]?.time === item.time)
-                      ? "#B89535"
-                      : "#fff",
-                  padding:
-                    isBetweenTwoDates(
-                      new Date(day + item.time),
-                      new Date(selected["CHECK-IN"]?.day + selected["CHECK-IN"]?.time),
-                      "CHECK-IN"
-                    ) &&
-                    isBetweenTwoDates(
-                      new Date(day + item.time),
-                      new Date(selected["CHECK-OUT"]?.day + selected["CHECK-OUT"]?.time),
-                      "CHECK-OUT"
-                    )
-                      ? "10px calc(((100%)/2) - 16px)"
-                      : (selected["CHECK-IN"]?.day === day &&
-                          selected["CHECK-IN"]?.time === item.time) ||
-                        (selected["CHECK-OUT"]?.day === day &&
-                          selected["CHECK-OUT"]?.time === item.time)
-                      ? "10px"
-                      : "null",
-                }}
-                onClick={() => selectDay(day, item)}
-              >
-                {day}
-              </div>
+                          ? "#F3EFE5"
+                          : (selected["CHECK-IN"]?.day === day &&
+                              selected["CHECK-IN"]?.time === item.time) ||
+                            (selected["CHECK-OUT"]?.day === day &&
+                              selected["CHECK-OUT"]?.time === item.time)
+                          ? "#B89535"
+                          : "#fff",
+                      padding:
+                        isBetweenTwoDates(
+                          new Date(day + item.time),
+                          new Date(selected["CHECK-IN"]?.day + selected["CHECK-IN"]?.time),
+                          "CHECK-IN"
+                        ) &&
+                        isBetweenTwoDates(
+                          new Date(day + item.time),
+                          new Date(selected["CHECK-OUT"]?.day + selected["CHECK-OUT"]?.time),
+                          "CHECK-OUT"
+                        )
+                          ? "10px calc(((100%)/2) - 16px)"
+                          : (selected["CHECK-IN"]?.day === day &&
+                              selected["CHECK-IN"]?.time === item.time) ||
+                            (selected["CHECK-OUT"]?.day === day &&
+                              selected["CHECK-OUT"]?.time === item.time)
+                          ? "10px"
+                          : "null",
+                    }}
+                    onClick={() => selectDay(day, item)}
+                  >
+                    {day}
+                  </div>
+                </div>
+              </React.Fragment>
             ))}
             {item.nextDays.map((nextDay: any, index: number) => (
               <div key={index} className="nextDays">
