@@ -1,45 +1,45 @@
 .dateBox-title {
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 20px;
-    color: #1D1F22;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+  color: #1d1f22;
 }
 
 .allDays-container {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    justify-items: center;
-    align-items: center;
-    width: 100%;
-    margin-top: 32px;
-    margin-bottom: 56px;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  justify-items: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 32px;
+  margin-bottom: 56px;
 }
 .grid-container,
 .prevDays,
 .currentDays,
-.selectedCurrentDays
-.nextDays {
+.selectedCurrentDays .nextDays {
   font-size: 16px;
   font-weight: 500;
   line-height: 20px;
-  letter-spacing: .01em;
+  letter-spacing: 0.01em;
   text-align: center;
   opacity: 0.9;
   min-width: 34px;
-  color: #8E8F90;
+  color: #8e8f90;
 }
-.prevDays, .nextDays {
-    color: #E8E9E9;
+.prevDays,
+.nextDays {
+  color: #e8e9e9;
 }
 
-.selectedCurrentDays { 
-    background-color: #B89535;
-    border-radius: 50%;
-    padding: 10px;
-    max-width: 20px;
-    text-align: center;
-    margin: auto;
+.selectedCurrentDays {
+  background-color: #b89535;
+  border-radius: 50%;
+  padding: 10px;
+  max-width: 20px;
+  text-align: center;
+  margin: auto;
 }
 .grid-container {
-    width: 100%;
+  width: 100%;
 }

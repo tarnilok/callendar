@@ -12,32 +12,33 @@ const daysNames = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 export interface allDaysInsideTypes {
   month: number;
   time: string;
-  days: number[];
+  days: number[] | [];
   prevDays: number[] | [];
   nextDays: number[] | [];
 }
 
 export interface durationInsideTypes {
   "CHECK-IN": {
-    time: string
-    day: number
-  }
+    time: string;
+    day: number;
+  };
   "CHECK-OUT": {
-    time: string
-    day: number
-  }
+    time: string;
+    day: number;
+  };
 }
 
-type durationTypes = {} | durationInsideTypes
-type allDaysTypes = [] | allDaysInsideTypes[];
+export type durationTypes = {} | durationInsideTypes;
+// type allDaysTypes = [] | allDaysInsideTypes;
 
 const Callendar = () => {
   let [monthChanger, setMonthChanger] = useState(new Date().getMonth());
   const [borderBottom, setBorderBottom] = useState("CHECK-IN");
-  const [allDays, setAllDays] = useState<any>([]);
-  const [duration, setDuration]: any = useState({});
+  const [allDays, setAllDays]: any = useState([]);
+  const [duration, setDuration] = useState<durationTypes>({});
 
   const durationAmount =
+    ("CHECK-IN" in duration || "CHECK-OUT" in duration) &&
     duration["CHECK-OUT"]?.day !== 0 &&
     duration["CHECK-IN"]?.day !== 0 &&
     (+new Date(duration["CHECK-OUT"]?.day + duration["CHECK-OUT"]?.time) -
@@ -49,10 +50,10 @@ const Callendar = () => {
       const { time, days, prevDays, nextDays } = callendarHandler(monthChanger);
       const currentMonth: any = {
         month: monthChanger + 1,
-        time: time,
-        days: days,
-        prevDays: prevDays,
-        nextDays: nextDays,
+        time,
+        days,
+        prevDays,
+        nextDays,
       };
       setAllDays([...allDays, currentMonth]);
       setMonthChanger(monthChanger + 1);
@@ -75,9 +76,9 @@ const Callendar = () => {
               }
               onClick={() => setBorderBottom(e)}
             >
-              {e === "CHECK-IN" && duration["CHECK-IN"]?.day
+              {e === "CHECK-IN" && "CHECK-IN" in duration && duration["CHECK-IN"]?.day
                 ? dateFormatter(duration, "CHECK-IN")
-                : e === "CHECK-OUT" && duration["CHECK-OUT"]?.day
+                : e === "CHECK-OUT" && "CHECK-OUT" in duration && duration["CHECK-OUT"]?.day
                 ? dateFormatter(duration, "CHECK-OUT")
                 : e}
             </div>

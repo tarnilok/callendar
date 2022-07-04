@@ -48,7 +48,6 @@ export const callendarHandler = (monthChanger: number) => {
 };
 
 export const dateFormatter = (duration: any, type: string) => {
-
   const { day, time } = duration[type];
   const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const months = [

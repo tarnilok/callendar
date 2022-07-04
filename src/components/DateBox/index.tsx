@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./styles.css";
 import { isLaterFromToday, isBetweenTwoDates } from "../../utils/helper";
-import { allDaysInsideTypes, durationInsideTypes } from "../Callendar/index";
+import { allDaysInsideTypes, durationTypes } from "../Callendar/index";
 
 interface DateBoxTypes {
   allDays: [];
@@ -118,7 +118,7 @@ const DateBox = ({ allDays, borderBottom, setDuration }: DateBoxTypes) => {
                             )
                           ? "#B89535"
                           : "#1D1F22"
-                        : "#1D1F22",
+                        : "##8E8F90",
                       backgroundColor:
                         isBetweenTwoDates(
                           new Date(day + item.time),
