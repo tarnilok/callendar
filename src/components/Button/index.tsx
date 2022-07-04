@@ -4,7 +4,7 @@ import "./styles.css";
 interface ButtonTypes {
   text: string;
   duration: {};
-  durationAmount: any;
+  durationAmount: number | boolean;
 }
 
 const Button = ({ text, duration, durationAmount }: ButtonTypes) => {

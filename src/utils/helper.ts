@@ -1,4 +1,6 @@
-export const callendarHandler = (monthChanger: any) => {
+import { durationInsideTypes } from "../components/Callendar/index";
+
+export const callendarHandler = (monthChanger: number) => {
   const date = new Date();
   date.setMonth(monthChanger);
   date.setDate(8);
@@ -46,6 +48,7 @@ export const callendarHandler = (monthChanger: any) => {
 };
 
 export const dateFormatter = (duration: any, type: string) => {
+
   const { day, time } = duration[type];
   const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const months = [
@@ -69,7 +72,7 @@ export const dateFormatter = (duration: any, type: string) => {
   return `${days[dayNo]}, ${months[monthNo]} ${year}`;
 };
 
-export const isLaterFromToday = (d1: any, d2: any, borderBottom: string) => {
+export const isLaterFromToday = (d1: Date, d2: Date, borderBottom: string) => {
   return (
     (d1.getFullYear() === d2.getFullYear() &&
     d1.getMonth() === d2.getMonth() &&
@@ -81,7 +84,7 @@ export const isLaterFromToday = (d1: any, d2: any, borderBottom: string) => {
   );
 };
 
-export const isBetweenTwoDates = (d1: any, d2: any, types: string) => {
+export const isBetweenTwoDates = (d1: Date, d2: Date | false, types: string) => {
   if (types === "CHECK-IN" && d2 && d1) {
     if (d1.getFullYear() === d2.getFullYear() && d1.getMonth() === d2.getMonth()) {
       return d1.getDate() > d2.getDate();

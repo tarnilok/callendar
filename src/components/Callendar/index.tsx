@@ -9,10 +9,32 @@ import DateBox from "../DateBox";
 
 const daysNames = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
+export interface allDaysInsideTypes {
+  month: number;
+  time: string;
+  days: number[];
+  prevDays: number[] | [];
+  nextDays: number[] | [];
+}
+
+export interface durationInsideTypes {
+  "CHECK-IN": {
+    time: string
+    day: number
+  }
+  "CHECK-OUT": {
+    time: string
+    day: number
+  }
+}
+
+type durationTypes = {} | durationInsideTypes
+type allDaysTypes = [] | allDaysInsideTypes[];
+
 const Callendar = () => {
   let [monthChanger, setMonthChanger] = useState(new Date().getMonth());
   const [borderBottom, setBorderBottom] = useState("CHECK-IN");
-  const [allDays, setAllDays]: any = useState([]);
+  const [allDays, setAllDays] = useState<any>([]);
   const [duration, setDuration]: any = useState({});
 
   const durationAmount =

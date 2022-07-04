@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./styles.css";
 import { isLaterFromToday, isBetweenTwoDates } from "../../utils/helper";
+import { allDaysInsideTypes, durationInsideTypes } from "../Callendar/index";
 
 interface DateBoxTypes {
   allDays: [];
   borderBottom: string;
-  setDuration: (e: any) => void;
+  setDuration: (e: number) => void;
 }
 
 const DateBox = ({ allDays, borderBottom, setDuration }: DateBoxTypes) => {
@@ -14,7 +15,7 @@ const DateBox = ({ allDays, borderBottom, setDuration }: DateBoxTypes) => {
   useEffect(() => {
     setDuration(selected);
   }, [selected, setDuration]);
-  const selectDay = (day: any, item: any) => {
+  const selectDay = (day: number, item: allDaysInsideTypes) => {
     const { time } = item;
     setSelected(
       (selected[`${borderBottom}`]?.day === day &&
@@ -53,7 +54,7 @@ const DateBox = ({ allDays, borderBottom, setDuration }: DateBoxTypes) => {
   };
   return (
     <>
-      {allDays.map((item: any) => (
+      {allDays.map((item: allDaysInsideTypes) => (
         <React.Fragment key={item.time}>
           <div className="dateBox-title">{item.time}</div>
           <div
@@ -65,18 +66,18 @@ const DateBox = ({ allDays, borderBottom, setDuration }: DateBoxTypes) => {
                   : "repeat(6, 56px)",
             }}
           >
-            {item.prevDays.map((prevDay: any, index: number) => (
-              <div key={index} className="prevDays">
+            {item.prevDays.map((prevDay: number, index: number) => (
+              <div key={item.time + "-prevDay-" + index} className="prevDays">
                 {prevDay}
               </div>
             ))}
             {item.days.map((day: number, index: number) => (
-              <React.Fragment key={item.time + "-" + index}>
+              <React.Fragment key={item.time + "-currentDay-" + index}>
                 <div
                   className="grid-container"
                   style={{
                     background:
-                      (selected["CHECK-IN"]?.day && selected["CHECK-OUT"]?.day)
+                      selected["CHECK-IN"]?.day && selected["CHECK-OUT"]?.day
                         ? selected["CHECK-IN"]?.day === day &&
                           selected["CHECK-IN"]?.time === item.time
                           ? "linear-gradient(90deg, #fff 50%, #F3EFE5 50%)"
@@ -164,8 +165,8 @@ const DateBox = ({ allDays, borderBottom, setDuration }: DateBoxTypes) => {
                 </div>
               </React.Fragment>
             ))}
-            {item.nextDays.map((nextDay: any, index: number) => (
-              <div key={index} className="nextDays">
+            {item.nextDays.map((nextDay: number, index: number) => (
+              <div key={item.time + "-nextDay-" + index} className="nextDays">
                 {nextDay}
               </div>
             ))}
