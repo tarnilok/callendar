@@ -76,7 +76,7 @@ const DateBox = ({ allDays, borderBottom, setDuration }: DateBoxTypes) => {
                   className="grid-container"
                   style={{
                     background:
-                      selected["CHECK-IN"]?.day && selected["CHECK-OUT"]?.day
+                      (selected["CHECK-IN"]?.day && selected["CHECK-OUT"]?.day)
                         ? selected["CHECK-IN"]?.day === day &&
                           selected["CHECK-IN"]?.time === item.time
                           ? "linear-gradient(90deg, #fff 50%, #F3EFE5 50%)"
@@ -84,7 +84,7 @@ const DateBox = ({ allDays, borderBottom, setDuration }: DateBoxTypes) => {
                             selected["CHECK-OUT"]?.time === item.time
                           ? "linear-gradient(90deg, #F3EFE5 50%, #fff 50%)"
                           : "null"
-                        : "null",
+                        : "#fff",
                   }}
                 >
                   <div
